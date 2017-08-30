@@ -10,7 +10,7 @@ var run=require("../../model/runModel")
 var getHeader = function (req) {
     var ret = {};
     for (var i in req.headers) {
-        if (!/^(host|connection|Access-|origin|referer|user-agent|__user|__path|__url|__method|__headers)/i.test(i)) {
+        if (!/^(host|connection|Access-|origin|referer|user-agent|__user|__path|__url|__method|__headers)/i.test(i)||(/^(Access-Token|access-token)/i.test(i))) {
                 ret[i] = req.headers[i];
         }
     }
@@ -29,7 +29,7 @@ var getHeader = function (req) {
 var filterResHeader = function (headers) {
     var ret = {};
     for (var i in headers) {
-        if (!/Access-/i.test(i)) {
+        if (!/Access-/i.test(i)||(/(Access-Token||access-token)/i.test(i))) {
             if(/set-cookie/i.test(i))
             {
                 for(let index=0;index<headers[i].length;index++)
